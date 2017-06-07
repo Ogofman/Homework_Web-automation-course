@@ -17,3 +17,11 @@ def test_open_firefox():
     driver.find_element_by_name("btnG").click()
     WebDriverWait(driver,3).until(ec.title_is("webdriver - Пошук Google"))
     driver.quit()
+
+def test_open_edge():
+    driver = webdriver.Edge()
+    driver.get("http://www.google.com")
+    driver.find_element_by_name("q").send_keys("webdriver")
+    driver.find_element_by_name("btnG").click()
+    WebDriverWait(driver,3).until(ec.title_is("webdriver - Пошук Google"))
+    driver.quit()
