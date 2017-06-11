@@ -3,4 +3,6 @@
 /__init__.py
 /geckodriver.log
 /udemy_tests.py
-/.idea
+.idea/
+/Homework_Web-automation-course/*
+
