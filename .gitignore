@@ -1,0 +1,6 @@
+
+/web_tests/.cache/
+web_tests/__init__.py
+web_tests/geckodriver.log
+.idea/
+/web_tests/tests_udemy_.py
