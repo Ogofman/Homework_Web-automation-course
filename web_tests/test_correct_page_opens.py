@@ -1,9 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.color import Color
 
 driver = webdriver.Chrome()
 driver.implicitly_wait(5)
+
+def rgb_to_hex(rgb):
+    return Color.from_string(rgb).hex
 
 def test_open_browser():
     driver.get("http://localhost/litecart")
@@ -32,5 +37,14 @@ def test_if_prices_equal():
     assert (camprice_on_mpage == camprice_on_ipage)
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
 
-
-
+def test_campaigns_price():
+    color1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//strong[@class='campaign-price']").value_of_css_property('color')
+    color_camprice_on_mpage = rgb_to_hex(color1)
+    font_weight1 = driver.find_element(By.XPATH,".//*[@id='box-campaign-products']//strong[@class='campaign-price']").value_of_css_property('font-weight')
+    driver.find_element_by_css_selector(".image.img-responsive").click()
+    color2 = driver.find_element(By.XPATH, ".//*[@id='box-product']//strong[@class='campaign-price']").value_of_css_property('color')
+    color_camprice_on_ipage = rgb_to_hex(color2)
+    font_weight2 = driver.find_element(By.XPATH, ".//*[@id='box-product']//strong[@class='campaign-price']").value_of_css_property('font-weight')
+    assert (color_camprice_on_mpage == color_camprice_on_ipage)
+    assert (font_weight1 == font_weight2)
+    driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
