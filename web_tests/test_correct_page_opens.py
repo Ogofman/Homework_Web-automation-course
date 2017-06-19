@@ -37,6 +37,13 @@ def test_if_prices_equal():
     assert (camprice_on_mpage == camprice_on_ipage)
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
 
+# def test_regular_price():
+#     color1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//s[@class='regular-price']").value_of_css_property('color')
+#     color_regprice_on_mpage = rgb_to_hex(color1)
+#     tag_name1 = driver.find_element(".//*[@id='box-campaign-products']//s[@class='regular-price']").find_element_by_tag_name("strike")
+#     print(tag_name1)
+
+
 def test_campaigns_price():
     color1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//strong[@class='campaign-price']").value_of_css_property('color')
     color_camprice_on_mpage = rgb_to_hex(color1)
@@ -45,6 +52,6 @@ def test_campaigns_price():
     color2 = driver.find_element(By.XPATH, ".//*[@id='box-product']//strong[@class='campaign-price']").value_of_css_property('color')
     color_camprice_on_ipage = rgb_to_hex(color2)
     font_weight2 = driver.find_element(By.XPATH, ".//*[@id='box-product']//strong[@class='campaign-price']").value_of_css_property('font-weight')
-    assert (color_camprice_on_mpage == color_camprice_on_ipage)
-    assert (font_weight1 == font_weight2)
+    assert (color_camprice_on_mpage == color_camprice_on_ipage == "#cc0000")
+    assert (font_weight1 == font_weight2 == "bold")
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
