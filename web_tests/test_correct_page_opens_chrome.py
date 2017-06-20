@@ -62,3 +62,5 @@ def test_campaigns_price():
     assert (color_camprice_on_mpage == color_camprice_on_ipage == "#cc0000")
     assert (font_weight1 == font_weight2 == "bold")
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
+
+    driver.quit()
