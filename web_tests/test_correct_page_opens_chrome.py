@@ -46,7 +46,6 @@ def test_regular_price():
     color_regprice_on_ipage = rgb_to_hex(color2)
     tag_name2 = driver.find_element(By.XPATH,".//*[@id='box-product']//del[@class='regular-price']").value_of_css_property('text-decoration-line')
     print(color_regprice_on_mpage, color_regprice_on_ipage)
-    print(tag_name1, tag_name2)
     assert (color_regprice_on_mpage == color_regprice_on_ipage == "#333333")
     assert (tag_name1 == tag_name2 == "line-through")
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
