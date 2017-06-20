@@ -37,12 +37,19 @@ def test_if_prices_equal():
     assert (camprice_on_mpage == camprice_on_ipage)
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
 
-# def test_regular_price():
-#     color1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//s[@class='regular-price']").value_of_css_property('color')
-#     color_regprice_on_mpage = rgb_to_hex(color1)
-#     tag_name1 = driver.find_element(".//*[@id='box-campaign-products']//s[@class='regular-price']").find_element_by_tag_name("strike")
-#     print(tag_name1)
-
+def test_regular_price():
+    color1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//s[@class='regular-price']").value_of_css_property('color')
+    color_regprice_on_mpage = rgb_to_hex(color1)
+    tag_name1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//s[@class='regular-price']").value_of_css_property('text-decoration-line')
+    driver.find_element_by_css_selector(".image.img-responsive").click()
+    color2 = driver.find_element(By.XPATH, ".//*[@id='box-product']//del[@class='regular-price']").value_of_css_property('color')
+    color_regprice_on_ipage = rgb_to_hex(color2)
+    tag_name2 = driver.find_element(By.XPATH,".//*[@id='box-product']//del[@class='regular-price']").value_of_css_property('text-decoration-line')
+    print(color_regprice_on_mpage, color_regprice_on_ipage)
+    print(tag_name1, tag_name2)
+    assert (color_regprice_on_mpage == color_regprice_on_ipage == "#333333")
+    assert (tag_name1 == tag_name2 == "line-through")
+    driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
 
 def test_campaigns_price():
     color1 = driver.find_element(By.XPATH, ".//*[@id='box-campaign-products']//strong[@class='campaign-price']").value_of_css_property('color')
