@@ -14,7 +14,7 @@ def test_open_browser():
     driver.get("http://localhost/litecart")
     driver.find_element_by_name("email").send_keys("admin@admin.com")
     driver.find_element_by_name("password").send_keys("admin")
-    driver.find_element_by_css_selector(".btn.btn-default").click()
+    driver.find_element_by_css_selector("button[name=login]").click()
     WebDriverWait(driver, 3).until(ec.title_is("My Store | Online Store"))
 
 def get_elem_attr(xpath, attr):
