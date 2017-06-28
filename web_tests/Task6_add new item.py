@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import os
 
 driver = webdriver.Firefox()
 driver.implicitly_wait(3)
@@ -39,7 +40,8 @@ def general_tab():
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_y']").send_keys("0.6")
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_z']").clear()
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_z']").send_keys("0.4")
-    driver.find_element_by_xpath(".//*[@id='images']//div/input[@name='new_images[]']").send_keys("D:\Web automation course\web_tests\Kowalski.jpeg")
+    p = os.path.abspath("D:\Web automation course\web_tests\Kowalski.jpeg")
+    driver.find_element_by_xpath(".//*[@id='images']//div/input[@name='new_images[]']").send_keys(p)
 
 def info_tab():
     driver.find_element_by_xpath(".//*[@id='main']/form/div/ul/li[contains(., 'Information')]").click()
