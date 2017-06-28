@@ -11,10 +11,7 @@ def rgb_to_hex(rgb):
     return Color.from_string(rgb).hex
 
 def test_open_browser():
-    driver.get("http://localhost/litecart")
-    driver.find_element_by_name("email").send_keys("admin@admin.com")
-    driver.find_element_by_name("password").send_keys("admin")
-    driver.find_element_by_css_selector("button[name=login]").click()
+    driver.get("http://localhost/litecart/en/")
     WebDriverWait(driver, 3).until(ec.title_is("My Store | Online Store"))
 
 def get_elem_attr(xpath, attr):
@@ -58,7 +55,6 @@ def test_campaigns_price():
     color_camprice_on_ipage = rgb_to_hex(color2)
     font_weight2 = driver.find_element(By.XPATH, ".//*[@id='box-product']//strong[@class='campaign-price']").value_of_css_property('font-weight')
     assert (color_camprice_on_mpage == color_camprice_on_ipage == "#cc0000")
-    print(font_weight2)
     assert (font_weight1 == font_weight2 == "700")
     driver.find_element_by_css_selector(".featherlight-close-icon.featherlight-close").click()
 
