@@ -8,14 +8,14 @@ driver.implicitly_wait(3)
 
 count_items_catalog = 0
 
-def test_open_admin_page():
+def open_admin_page():
     driver.get("http://localhost/litecart/admin/login.php")
     driver.find_element_by_name("username").send_keys("admin")
     driver.find_element_by_name("password").send_keys("admin")
     driver.find_element_by_css_selector("button[name=login]").click()
     WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "fa-sign-out")))
 
-def test_general_tab():
+def general_tab():
     global count_items_catalog
     driver.find_element_by_xpath(".//*[@id='app-']//span[contains(., 'Catalog')]").click()
     count_items_catalog = len(driver.find_elements_by_xpath(".//*[@id='main']/form/table/tbody/tr"))
@@ -41,21 +41,25 @@ def test_general_tab():
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_z']").send_keys("0.4")
     driver.find_element_by_xpath(".//*[@id='images']//div/input[@name='new_images[]']").send_keys("D:\Web automation course\web_tests\Kowalski.jpeg")
 
-def test_info_tab():
+def info_tab():
     driver.find_element_by_xpath(".//*[@id='main']/form/div/ul/li[contains(., 'Information')]").click()
     driver.find_element_by_xpath(".//*[@id='tab-information']//div/input[@name='keywords']").send_keys("toy, penguin")
     driver.find_element_by_xpath(".//*[@id='tab-information']//div/input[@name='short_description[en]']").send_keys("Baby Kowalski Plush")
     driver.find_element_by_xpath(".//*[@id='tab-information']//div[@class='trumbowyg-editor']").send_keys("Spend your day with the Penguin of Madagascar!")
     driver.find_element_by_xpath(".//*[@id='tab-information']//div/textarea[@name='attributes[en]']").send_keys('soft, plush')
 
-def test_prices_tab():
+def prices_tab():
     driver.find_element_by_xpath(".//*[@id='main']/form/div/ul/li[contains(., 'Prices')]").click()
     driver.find_element_by_xpath(".//*[@id='prices']//div/input[@name='purchase_price']").clear()
     driver.find_element_by_xpath(".//*[@id='prices']//input[@name='prices[USD]']").send_keys("25")
     driver.find_element_by_xpath(".//*[@id='prices']//input[@name='prices[EUR]']").send_keys("30")
     driver.find_element_by_xpath(".//*[@id='main']//button[@name='save']").click()
 
+open_admin_page()
+general_tab()
+info_tab()
+prices_tab()
+
 def test_product_added():
     count_items = len(driver.find_elements_by_xpath(".//*[@id='main']/form/table/tbody/tr"))
     assert (count_items > count_items_catalog)
-    
