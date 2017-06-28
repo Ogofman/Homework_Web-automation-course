@@ -65,3 +65,5 @@ prices_tab()
 def test_product_added():
     count_items = len(driver.find_elements_by_xpath(".//*[@id='main']/form/table/tbody/tr"))
     assert (count_items > count_items_catalog)
+
+    driver.quit()
