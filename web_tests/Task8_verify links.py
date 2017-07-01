@@ -29,3 +29,5 @@ def test_links():
             driver.switch_to.window(new_window[0])
             driver.close()
             driver.switch_to.window(current_window)
+
+    driver.quit()
