@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome()
-added_items = 0
 
 def waiting(time):
     driver.implicitly_wait(time)
@@ -33,15 +32,24 @@ def test_add_products():
         WebDriverWait(driver, 5).until(ec.text_to_be_present_in_element((By.XPATH, ".//*[@id='cart']//span[@class='quantity']"), str(i)))
         i += 1
 
+def items(xpath):
+    return len(driver.find_elements_by_xpath(xpath))
+
 def test_remove_products():
-    global added_items
     driver.find_element_by_xpath(".//*[@id='cart']").click()
     waiting(2)
-    added_items = len(driver.find_elements_by_xpath(".//*[@id='box-checkout-cart']//tbody/tr"))
-    print(added_items)
-    while added_items > 0:
-        try:
-            driver.find_element_by_xpath(".//div[@class='loader-wrapper']")
-        except:
-            driver.find_element_by_xpath(".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']").click()
-            added_items = len(driver.find_elements_by_xpath(".//*[@id='box-checkout-cart']//tbody/tr"))
+    try:
+        WebDriverWait(driver, 2).until(ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
+    finally:
+        while items(".//*[@id='box-checkout-cart']//tbody/tr") > 0:
+            try:
+                WebDriverWait(driver, 2).until(ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
+            except:
+                driver.find_element_by_xpath(".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']").click()
+
+def test_cart_empty():
+    driver.find_element_by_xpath(".//*[@id='box-checkout']//a[contains(., Back)]").click()
+    quan = driver.find_element_by_xpath(".//*[@id='cart']//span[@class='quantity']").get_attribute("text")
+    assert (quan == None)
+
+    driver.quit()
