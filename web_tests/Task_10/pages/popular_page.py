@@ -1,4 +1,3 @@
-from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
@@ -33,4 +32,3 @@ class PopularPage:
         self.driver.find_element_by_xpath(".//button[@class='featherlight-close-icon featherlight-close']").click()
         WebDriverWait(self.driver, 5).until(
             ec.text_to_be_present_in_element((By.XPATH, ".//*[@id='cart']//span[@class='quantity']"), str(i)))
-

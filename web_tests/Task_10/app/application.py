@@ -1,7 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import By
 from web_tests.Task_10.pages.popular_page import PopularPage
 from web_tests.Task_10.pages.checkout_page import CheckoutPage
 
@@ -23,14 +20,11 @@ class Application:
     def add_product_to_cart(self, i):
         self.popular_page.add_product(i)
 
-    def remove_product_from_cart(self):
+    def open_checkout(self):
+        self.checkout_page.open()
+
+    def remove_products_from_cart(self):
         self.checkout_page.remove_products()
 
-
-
-
-
-
-
-
-
+    def check_cart_empty(self):
+        self.checkout_page.cart_empty()

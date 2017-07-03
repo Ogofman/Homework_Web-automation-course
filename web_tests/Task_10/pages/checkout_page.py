@@ -1,4 +1,3 @@
-from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
@@ -13,7 +12,7 @@ class CheckoutPage:
     def waiting(self, time):
         self.driver.implicitly_wait(time)
 
-    def open (self):
+    def open(self):
         self.driver.find_element_by_xpath(".//*[@id='cart']").click()
         self.waiting(2)
         return self
@@ -22,8 +21,6 @@ class CheckoutPage:
         return len(self.driver.find_elements_by_xpath(xpath))
 
     def remove_products(self):
-        self.driver.find_element_by_xpath(".//*[@id='cart']").click()
-        self.waiting(2)
         try:
             WebDriverWait(self.driver, 2).until(
                 ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
