@@ -21,19 +21,10 @@ class CheckoutPage:
         return len(self.driver.find_elements_by_xpath(xpath))
 
     def remove_products(self):
-        try:
-            WebDriverWait(self.driver, 2).until(
-                ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
-        finally:
-            while self.items(".//*[@id='box-checkout-cart']//tbody/tr") > 0:
-                try:
-                    WebDriverWait(self.driver, 2).until(
-                        ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
-                except:
-                    self.driver.find_element_by_xpath(
-                        ".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']").click()
+        while self.items(".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']") > 0:
+            table = self.driver.find_element_by_xpath(".//*[@id='order_confirmation-wrapper']/table")
+            self.driver.find_element_by_xpath(".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']").click()
+            WebDriverWait(self.driver, 3).until(ec.staleness_of(table))
 
-    def cart_empty(self):
+    def go_back(self):
         self.driver.find_element_by_xpath(".//*[@id='box-checkout']//a[contains(., Back)]").click()
-        self.quan = self.driver.find_element_by_xpath(".//*[@id='cart']//span[@class='quantity']").get_attribute("text")
-        return self.quan

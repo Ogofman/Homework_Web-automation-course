@@ -13,6 +13,10 @@ class PopularPage:
         self.driver.find_element_by_xpath(".//*[@id='content']//a[@href='#popular-products']").click()
         return self
 
+    def items_in_cart(self):
+        qtty = self.driver.find_element_by_xpath(".//*[@id='cart']//span[@class='quantity']")
+        return int(qtty.get_attribute("textContent"))
+
     def waiting(self, time):
         self.driver.implicitly_wait(time)
 

@@ -14,17 +14,15 @@ class Application:
     def quit(self):
         self.driver.quit()
 
-    def open_popular(self):
+    def get_items_in_cart(self):
         self.popular_page.open(self.base_url)
+        return self.popular_page.items_in_cart()
 
     def add_product_to_cart(self, i):
         self.popular_page.add_product(i)
 
-    def open_checkout(self):
-        self.checkout_page.open()
-
     def remove_products_from_cart(self):
+        self.checkout_page.open()
         self.checkout_page.remove_products()
+        self.checkout_page.go_back()
 
-    def check_cart_empty(self):
-        self.checkout_page.cart_empty()
