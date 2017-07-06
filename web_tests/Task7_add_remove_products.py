@@ -38,14 +38,10 @@ def items(xpath):
 def test_remove_products():
     driver.find_element_by_xpath(".//*[@id='cart']").click()
     waiting(2)
-    try:
-        WebDriverWait(driver, 2).until(ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
-    finally:
-        while items(".//*[@id='box-checkout-cart']//tbody/tr") > 0:
-            try:
-                WebDriverWait(driver, 2).until(ec.presence_of_element_located((By.XPATH, ".//div[@class='loader-wrapper']")))
-            except:
-                driver.find_element_by_xpath(".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']").click()
+    while items (".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']") > 0:
+        table = driver.find_element_by_xpath(".//*[@id='order_confirmation-wrapper']/table")
+        driver.find_element_by_xpath(".//*[@id='box-checkout-cart']//button[@class='btn btn-danger']").click()
+        WebDriverWait(driver, 3).until(ec.staleness_of(table))
 
 def test_cart_empty():
     driver.find_element_by_xpath(".//*[@id='box-checkout']//a[contains(., Back)]").click()
