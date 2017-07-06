@@ -40,7 +40,7 @@ def general_tab():
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_y']").send_keys("0.6")
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_z']").clear()
     driver.find_element_by_xpath(".//*[@id='tab-general']//div/input[@name='dim_z']").send_keys("0.4")
-    p = os.path.abspath("D:\Web automation course\web_tests\Kowalski.jpeg")
+    p = os.path.abspath("Kowalski.jpeg")
     driver.find_element_by_xpath(".//*[@id='images']//div/input[@name='new_images[]']").send_keys(p)
 
 def info_tab():
